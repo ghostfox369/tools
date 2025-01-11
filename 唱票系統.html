@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>唱票結果</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .vote-section {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            gap: 20px; /* 增加框之間的間距 */
+        }
+
+        .vote {
+            text-align: center;
+            border: 2px solid #007BFF; /* 加上框線 */
+            border-radius: 10px; /* 邊角圓潤 */
+            padding: 40px; /* 增加內部留白 */
+            width: 45%; /* 區塊寬度 */
+            background-color: #f9f9f9; /* 背景色 */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 增加陰影 */
+        }
+
+        .vote h2 {
+            font-size: 32px; /* 增大標題字體 */
+            color: #007BFF;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 120px; /* 票數的字體大小 */
+            margin: 10px 0;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        button {
+            margin: 5px;
+            padding: 10px 20px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #007BFF; /* 藍色背景 */
+        }
+
+        button:hover {
+            background-color: #0056b3; /* 懸停時的深藍色 */
+        }
+
+        /* +1 按鈕樣式 */
+        .btn-plus {
+            background-color: #28a745; /* 綠色 */
+        }
+
+        .btn-plus:hover {
+            background-color: #218838;
+        }
+
+        /* -1 按鈕樣式 */
+        .btn-minus {
+            background-color: #dc3545; /* 紅色 */
+        }
+
+        .btn-minus:hover {
+            background-color: #c82333;
+        }
+
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>唱票結果</h1>
+        <div class="vote-section">
+            <div class="vote">
+                <h2>同意</h2>
+                <p id="agree-count">0</p>
+            </div>
+            <div class="vote">
+                <h2>不同意</h2>
+                <p id="disagree-count">0</p>
+            </div>
+        </div>
+        <div class="button-group">
+            <button class="btn-plus" onclick="changeVote('agree', 1)">同意+1</button>
+            <button class="btn-minus" onclick="changeVote('agree', -1)">同意-1</button>
+            <button class="btn-plus" onclick="changeVote('disagree', 1)">不同意+1</button>
+            <button class="btn-minus" onclick="changeVote('disagree', -1)">不同意-1</button>
+        </div>
+        <div><hr /></div>
+        <button onclick="resetVotes()">重置</button>
+    </div>
+
+    <!-- 聲音元素 -->
+    <audio id="agree-sound" src="https://ghostfox369.github.io/mp3/agree.mp3" preload="auto"></audio>
+    <audio id="disagree-sound" src="https://ghostfox369.github.io/mp3/deagree.mp3" preload="auto"></audio>
+
+    <script>
+        let agreeCount = 0;
+        let disagreeCount = 0;
+
+        function changeVote(type, value) {
+            if (type === 'agree') {
+                agreeCount = Math.max(0, agreeCount + value); // 同意票數加減
+                document.getElementById('agree-count').textContent = agreeCount; // 更新畫面
+                // 播放同意聲音
+                if (value=== 1) {document.getElementById('agree-sound').play();}
+            } else if (type === 'disagree') {
+                disagreeCount = Math.max(0, disagreeCount + value); // 不同意票數加減
+                document.getElementById('disagree-count').textContent = disagreeCount; // 更新畫面
+                // 播放不同意聲音
+                if (value=== 1) {document.getElementById('disagree-sound').play();}
+            }
+        }
+
+        function resetVotes() {
+            agreeCount = 0;
+            disagreeCount = 0;
+            document.getElementById('agree-count').textContent = agreeCount; // 重置同意
+            document.getElementById('disagree-count').textContent = disagreeCount; // 重置不同意
+        }
+    </script>
+</body>
+</html>
