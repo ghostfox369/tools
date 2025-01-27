@@ -102,7 +102,6 @@
             指令: 
             <button class="copy-button" onclick="copyCommand()">複製指令</button><br>
             <input type="text" class="cmd" readonly>
-            (新增捷徑-->貼到「輸入項目的位置」)
         </div>
     </div>
 
@@ -150,7 +149,7 @@
             cmdText.select();
             cmdText.setSelectionRange(0, 99999);
             document.execCommand("copy");
-            alert("指令已複製到剪貼簿！");
+            alert("已複製，請貼到新增捷徑的「輸入項目的位置」！");
         }
 
         updateCommand();
