@@ -870,7 +870,7 @@ function copyPrompts() {
         outputArea.select();
         document.execCommand('copy');
         
-        alertLog.textContent = '複製成功！';
+        alertLog.textContent = '複製成功！請貼到「chatgpt」或其他AI工具產生參考評語。';
         setTimeout(() => {
             alertLog.textContent = '無';
         }, 5000);
